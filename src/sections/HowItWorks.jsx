@@ -42,8 +42,8 @@ const HowItWorks = () => (
           </div>
         </div>
         <div className="bp-body">
-          {HOWTO_STEPS.map((s, i) => (
-            <div key={i} className="bp-step">
+          {HOWTO_STEPS.map((s) => (
+            <div key={s.num} className="bp-step">
               <div className="bp-step-top">
                 <div className="bp-step-num">{s.num}</div>
                 <div className="bp-step-icon"><Icon name={s.icon} size={22} stroke={1.8}/></div>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { TC_HERO_SLIDES } from '../data';
-import Icon from '../components/Icon';
 import PassportForm from '../components/PassportForm';
 
 const useSlideshow = (count, ms = 6500) => {

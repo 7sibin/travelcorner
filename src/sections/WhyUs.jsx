@@ -93,8 +93,8 @@ const WhyUs = () => (
       </div>
       <PassportSpread />
       <div className="why-grid">
-        {WHY_ITEMS.map((w, i) => (
-          <div key={i} className="why-card">
+        {WHY_ITEMS.map((w) => (
+          <div key={w.num} className="why-card">
             <span className="why-num">{w.num}</span>
             <div className="why-stamp"><Icon name={w.icon} size={30} stroke={1.6}/></div>
             <h3>{w.title}</h3>

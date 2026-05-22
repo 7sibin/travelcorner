@@ -77,22 +77,25 @@ const WorldMapFilter = ({ offers, selectedId, onSelect }) => {
           );
         })}
       </svg>
-      {activeOffer && (
+      {activeOffer && (() => {
+        const { x, y } = toXY(activeOffer.lat, activeOffer.lng);
+        return (
         <div
           className="map-tooltip"
           style={{
-            left: `calc(18px + ${toXY(activeOffer.lat, activeOffer.lng).x / 1000} * (100% - 36px))`,
-            top: `calc(18px + ${toXY(activeOffer.lat, activeOffer.lng).y / 500} * (100% - 36px))`,
+            left: `calc(18px + ${x / 1000} * (100% - 36px))`,
+            top: `calc(18px + ${y / 500} * (100% - 36px))`,
           }}
         >
-          <img src={activeOffer.img} alt={activeOffer.name}/>
+          <img src={activeOffer.img} alt={activeOffer.name} loading="lazy"/>
           <div>
             <div className="tt-loc">{activeOffer.country} · {activeOffer.tag}</div>
             <div className="tt-name">{activeOffer.name}</div>
             <div className="tt-price">od €{activeOffer.price}</div>
           </div>
         </div>
-      )}
+        );
+      })()}
     </div>
   );
 };

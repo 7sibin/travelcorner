@@ -33,8 +33,8 @@ const Testimonials = () => (
         <a href="#" className="btn btn-ghost">Sve recenzije <Icon name="arrow-right" size={16}/></a>
       </div>
       <div className="testimonials-grid">
-        {TESTIMONIALS.map((t, i) => (
-          <div key={i} className="postcard">
+        {TESTIMONIALS.map((t) => (
+          <div key={t.name} className="postcard">
             <div className="postcard-stamp">
               <Icon name="plane" size={20}/>
               <div className="place">{t.place}</div>
@@ -45,7 +45,7 @@ const Testimonials = () => (
             </div>
             <p className="postcard-quote">{t.quote}</p>
             <div className="postcard-author">
-              <img className="postcard-avatar" src={t.avatar} alt={t.name}/>
+              <img className="postcard-avatar" src={t.avatar} alt={t.name} loading="lazy"/>
               <div>
                 <div className="postcard-author-name">{t.name}</div>
                 <div className="postcard-author-trip">{t.trip}</div>
