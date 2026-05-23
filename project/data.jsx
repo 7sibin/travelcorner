@@ -1,0 +1,111 @@
+// data.jsx — TravelCorner destinations & content data
+// Loaded as a Babel script before app.jsx; exposes everything on window.
+
+const TC_HERO_SLIDES = [
+  {
+    id: 'santorini',
+    name: 'Santorini',
+    country: 'Grčka',
+    eyebrow: 'Letnji bestseler',
+    title: 'Plavi snovi nad',
+    titleScript: 'Egejskim morem',
+    desc: 'Osam noćenja u Oia selu, panoramska soba sa pogledom na kalderu i sunset koji se pamti.',
+    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1600&q=80&auto=format&fit=crop',
+    price: '€749',
+    strike: '€899',
+    nights: 8,
+    departure: '15. jun',
+  },
+  {
+    id: 'maldives',
+    name: 'Maldivi',
+    country: 'Indijski okean',
+    eyebrow: 'Honeymoon paket',
+    title: 'Bungalov iznad',
+    titleScript: 'tirkizne lagune',
+    desc: 'All-inclusive vodeni bungalov, povratni let iz Beograda i dnevni izlasci na pojas peska.',
+    image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1600&q=80&auto=format&fit=crop',
+    price: '€1.890',
+    strike: '€2.250',
+    nights: 7,
+    departure: '02. jul',
+  },
+  {
+    id: 'paris',
+    name: 'Pariz',
+    country: 'Francuska',
+    eyebrow: 'Vikend za dvoje',
+    title: 'Vikend pod',
+    titleScript: 'Ajfelovom kulom',
+    desc: 'Tri noćenja u Marais kvartu, krstarenje Senom i ulaznice za Louvre bez čekanja.',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80&auto=format&fit=crop',
+    price: '€389',
+    strike: '€459',
+    nights: 3,
+    departure: '12. maj',
+  },
+  {
+    id: 'bali',
+    name: 'Bali',
+    country: 'Indonezija',
+    eyebrow: 'Egzotika',
+    title: 'Pirinčana polja',
+    titleScript: 'i hramovi',
+    desc: 'Deset noćenja Ubud + Seminyak, privatni vodič i tradicionalna kuvarska radionica.',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=1600&q=80&auto=format&fit=crop',
+    price: '€1.290',
+    strike: '€1.490',
+    nights: 10,
+    departure: '20. avg',
+  },
+];
+
+const TC_POPULAR = [
+  { id: 'antalya', name: 'Antalija', country: 'Turska', tag: 'Letovanje', badge: '-25%', img: 'https://images.unsplash.com/photo-1605537964410-09bcec73cb71?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'All inclusive', rating: 4.8, price: 549, strike: 729, lat: 36.9, lng: 30.7 },
+  { id: 'santorini2', name: 'Santorini', country: 'Grčka', tag: 'Letovanje', badge: 'Top pick', img: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=900&q=80&auto=format&fit=crop', nights: 8, board: 'Polupansion', rating: 4.9, price: 749, strike: 899, lat: 36.4, lng: 25.5 },
+  { id: 'dubai', name: 'Dubai', country: 'UAE', tag: 'Egzotika', badge: 'Novo', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=80&auto=format&fit=crop', nights: 5, board: 'Doručak', rating: 4.7, price: 899, strike: 1090, lat: 25.2, lng: 55.3 },
+  { id: 'bansko', name: 'Bansko', country: 'Bugarska', tag: 'Zima', badge: 'Ski paket', img: 'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'Polupansion', rating: 4.6, price: 459, strike: 599, lat: 41.8, lng: 23.5 },
+  { id: 'rome', name: 'Rim', country: 'Italija', tag: 'Gradovi', badge: '-15%', img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=900&q=80&auto=format&fit=crop', nights: 4, board: 'Doručak', rating: 4.8, price: 419, strike: 499, lat: 41.9, lng: 12.5 },
+  { id: 'hurghada', name: 'Hurgada', country: 'Egipat', tag: 'Letovanje', badge: 'Hit cena', img: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'All inclusive', rating: 4.5, price: 489, strike: 629, lat: 27.2, lng: 33.8 },
+  { id: 'vienna', name: 'Beč', country: 'Austrija', tag: 'Gradovi', badge: 'Vikend', img: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=900&q=80&auto=format&fit=crop', nights: 3, board: 'Doručak', rating: 4.7, price: 269, strike: 329, lat: 48.2, lng: 16.4 },
+  { id: 'maldives2', name: 'Maldivi', country: 'Indijski okean', tag: 'Egzotika', badge: 'Honeymoon', img: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'All inclusive', rating: 5.0, price: 1890, strike: 2250, lat: 3.2, lng: 73.2 },
+];
+
+const TC_ALL_OFFERS = [
+  ...TC_POPULAR,
+  { id: 'crete', name: 'Krit', country: 'Grčka', tag: 'Letovanje', badge: 'Family', img: 'https://images.unsplash.com/photo-1602211844066-d3bb556e983b?w=900&q=80&auto=format&fit=crop', nights: 10, board: 'All inclusive', rating: 4.7, price: 689, strike: 819, lat: 35.2, lng: 24.8 },
+  { id: 'barcelona', name: 'Barselona', country: 'Španija', tag: 'Gradovi', badge: 'Hit', img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=900&q=80&auto=format&fit=crop', nights: 4, board: 'Doručak', rating: 4.8, price: 449, strike: 549, lat: 41.4, lng: 2.2 },
+  { id: 'kopaonik', name: 'Kopaonik', country: 'Srbija', tag: 'Zima', badge: 'Ski pass uključen', img: 'https://images.unsplash.com/photo-1551524613-2ec0c0c50769?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'Polupansion', rating: 4.5, price: 389, strike: 489, lat: 43.3, lng: 20.8 },
+  { id: 'zanzibar', name: 'Zanzibar', country: 'Tanzanija', tag: 'Egzotika', badge: 'Avantura', img: 'https://images.unsplash.com/photo-1589330273594-fade1ee91647?w=900&q=80&auto=format&fit=crop', nights: 9, board: 'All inclusive', rating: 4.6, price: 1390, strike: 1590, lat: -6.2, lng: 39.3 },
+  { id: 'amsterdam', name: 'Amsterdam', country: 'Holandija', tag: 'Gradovi', badge: 'Tulipani', img: 'https://images.unsplash.com/photo-1534351590666-13e3e96c5017?w=900&q=80&auto=format&fit=crop', nights: 3, board: 'Doručak', rating: 4.7, price: 329, strike: 399, lat: 52.4, lng: 4.9 },
+  { id: 'sharm', name: 'Šarm el Šeik', country: 'Egipat', tag: 'Letovanje', badge: '-30%', img: 'https://images.unsplash.com/photo-1505881502353-a1986add3762?w=900&q=80&auto=format&fit=crop', nights: 7, board: 'All inclusive', rating: 4.5, price: 449, strike: 649, lat: 27.9, lng: 34.3 },
+  { id: 'jahorina', name: 'Jahorina', country: 'BiH', tag: 'Zima', badge: 'Komšiluk', img: 'https://images.unsplash.com/photo-1548777123-e216912df7d8?w=900&q=80&auto=format&fit=crop', nights: 5, board: 'Polupansion', rating: 4.6, price: 299, strike: 369, lat: 43.7, lng: 18.6 },
+  { id: 'thailand', name: 'Pukhet', country: 'Tajland', tag: 'Egzotika', badge: 'Daleko', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=900&q=80&auto=format&fit=crop', nights: 10, board: 'Doručak', rating: 4.7, price: 1190, strike: 1390, lat: 7.9, lng: 98.4 },
+];
+
+const TC_INSTAGRAM = [
+  { img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80&auto=format&fit=crop', tag: '#parizjebajka' },
+  { img: 'https://images.unsplash.com/photo-1505881502353-a1986add3762?w=600&q=80&auto=format&fit=crop', tag: '#crvenomore' },
+  { img: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format&fit=crop', tag: '#santorinilove' },
+  { img: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=600&q=80&auto=format&fit=crop', tag: '#balivibes' },
+  { img: 'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80&auto=format&fit=crop', tag: '#snijegisunce' },
+  { img: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80&auto=format&fit=crop', tag: '#maldivedreams' },
+  { img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80&auto=format&fit=crop', tag: '#rimnocu' },
+  { img: 'https://images.unsplash.com/photo-1605537964410-09bcec73cb71?w=600&q=80&auto=format&fit=crop', tag: '#antalijasunce' },
+  { img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format&fit=crop', tag: '#dubaiskyline' },
+  { img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&q=80&auto=format&fit=crop', tag: '#barcelonalive' },
+  { img: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80&auto=format&fit=crop', tag: '#paradiselost' },
+  { img: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=600&q=80&auto=format&fit=crop', tag: '#becsachocoladom' },
+];
+
+const TC_CATEGORIES = [
+  { id: 'all', label: 'Sve ponude' },
+  { id: 'Letovanje', label: 'Letovanja' },
+  { id: 'Zima', label: 'Zimovanja' },
+  { id: 'Gradovi', label: 'Gradovi' },
+  { id: 'Egzotika', label: 'Daleke destinacije' },
+];
+
+Object.assign(window, {
+  TC_HERO_SLIDES, TC_POPULAR, TC_ALL_OFFERS, TC_INSTAGRAM, TC_CATEGORIES,
+});
