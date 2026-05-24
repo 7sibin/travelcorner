@@ -275,6 +275,9 @@ img { max-width: 100%; display: block; }
   .hero-v1-price-tag { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
   .hero-v1-passport-wrap { margin-top: -60px; padding: 0; }
   .passport { padding: 16px; }
+  .passport.v-open .passport-inner { grid-template-columns: 0.9fr 1fr; }
+  .passport.v-open .passport-left { padding: 16px 12px; }
+  .passport.v-open .passport-left .crown { font-size: 22px; }
   .passport-tabs { padding: 3px; gap: 3px; margin-bottom: 12px; }
   .passport-tab { padding: 8px 4px; font-size: 11px; gap: 3px; }
   .passport-field { padding: 10px 10px; gap: 8px; }
