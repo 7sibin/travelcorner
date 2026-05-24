@@ -12,10 +12,14 @@ const Instagram = () => (
         </div>
       </div>
       <div className="ig-mosaic">
-        {TC_INSTAGRAM.slice(0, 10).map((p, i) => (
+        {TC_INSTAGRAM.map((p, i) => (
           <a key={i} className="ig-tile" href="#" onClick={e => e.preventDefault()}>
-            <img src={p.img} alt={p.tag} loading="lazy"/>
-            <span className="ig-tile-tag">{p.tag}</span>
+            <img src={p.img} alt={p.name} loading="lazy"/>
+            <div className="ig-overlay">
+              <span className="ig-overlay-location">{p.location}</span>
+              <span className="ig-overlay-name">{p.name}</span>
+              <span className="ig-overlay-tag">{p.tag}</span>
+            </div>
           </a>
         ))}
       </div>

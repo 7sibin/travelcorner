@@ -135,6 +135,12 @@ img { max-width: 100%; display: block; }
 .passport-stamp { position: absolute; width: 78px; height: 78px; border-radius: 50%; border: 2px dashed var(--tc-mint-deep); color: var(--tc-mint-deep); display: flex; align-items: center; justify-content: center; flex-direction: column; transform: rotate(-12deg); top: -22px; right: -22px; background: var(--tc-paper); font-family: 'Caveat', cursive; font-size: 18px; line-height: 1; font-weight: 700; text-align: center; padding: 6px; }
 .passport-stamp small { display: block; font-size: 9px; letter-spacing: 0.1em; font-family: 'Manrope', sans-serif; font-weight: 700; margin-top: 2px; }
 
+/* Passport stamp bleeds outside card on mobile — clip it */
+@media (max-width: 900px) {
+  .passport { overflow: hidden; }
+  .passport-stamp { display: none; }
+}
+
 /* ─── Cards (offers) ─── */
 .offer-card { background: var(--tc-paper); border-radius: var(--tc-radius-lg); overflow: hidden; box-shadow: var(--tc-shadow-sm); transition: transform .25s ease, box-shadow .25s ease; display: flex; flex-direction: column; cursor: pointer; }
 .offer-card:hover { transform: translateY(-4px); box-shadow: var(--tc-shadow-lg); }
@@ -181,12 +187,38 @@ img { max-width: 100%; display: block; }
 /* ─── Instagram ─── */
 .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
 .ig-tile { aspect-ratio: 1/1; border-radius: 18px; overflow: hidden; position: relative; background: var(--tc-line); cursor: pointer; }
-.ig-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
-.ig-tile:hover img { transform: scale(1.08); }
-.ig-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(42, 36, 24, 0.5)); opacity: 0; transition: opacity .25s ease; }
-.ig-tile:hover::after { opacity: 1; }
-.ig-tile-tag { position: absolute; bottom: 10px; left: 12px; color: white; font-family: 'Caveat', cursive; font-size: 20px; opacity: 0; transition: opacity .25s ease; z-index: 1; }
-.ig-tile:hover .ig-tile-tag { opacity: 1; }
+.ig-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.ig-tile:hover img { transform: scale(1.07); }
+
+/* Hover overlay */
+.ig-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(20,16,8,0.88) 0%, rgba(20,16,8,0.35) 45%, transparent 72%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 14px 16px;
+  opacity: 0; transition: opacity .3s ease;
+}
+.ig-tile:hover .ig-overlay { opacity: 1; }
+.ig-overlay-location {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); font-weight: 700; margin-bottom: 2px;
+}
+.ig-overlay-name {
+  font-family: 'Caveat', cursive; font-size: 22px;
+  color: white; line-height: 1.1; margin-bottom: 5px;
+}
+.ig-overlay-tag {
+  font-size: 11px; color: var(--tc-orange);
+  font-weight: 700; letter-spacing: 0.02em;
+}
+
+/* Larger text for big mosaic tiles */
+.ig-mosaic .ig-tile:nth-child(1) .ig-overlay-name,
+.ig-mosaic .ig-tile:nth-child(2) .ig-overlay-name { font-size: 30px; }
+.ig-mosaic .ig-tile:nth-child(1) .ig-overlay-location,
+.ig-mosaic .ig-tile:nth-child(2) .ig-overlay-location { font-size: 11px; }
+.ig-mosaic .ig-tile:nth-child(1) .ig-overlay,
+.ig-mosaic .ig-tile:nth-child(2) .ig-overlay { padding: 20px 22px; }
 @media (max-width: 900px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ─── Footer ─── */
@@ -233,6 +265,21 @@ img { max-width: 100%; display: block; }
   .hero-v1-title { font-size: 36px; }
   .hero-v1-title em { font-size: 42px; }
   .hero-v1-passport-wrap { position: relative; right: auto; bottom: auto; margin: -80px auto 0; transform: rotate(0); padding: 0 16px; max-width: 460px; }
+}
+@media (max-width: 480px) {
+  .hero-v1-stage { aspect-ratio: auto; min-height: 480px; }
+  .hero-v1-title { font-size: 28px; }
+  .hero-v1-title em { font-size: 34px; }
+  .hero-v1-eyebrow { font-size: 24px; }
+  .hero-v1-desc { font-size: 14px; margin-bottom: 14px; }
+  .hero-v1-price-tag { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
+  .hero-v1-passport-wrap { margin-top: -60px; padding: 0; }
+  .passport { padding: 16px; }
+  .passport-tabs { padding: 3px; gap: 3px; margin-bottom: 12px; }
+  .passport-tab { padding: 8px 4px; font-size: 11px; gap: 3px; }
+  .passport-field { padding: 10px 10px; gap: 8px; }
+  .passport-field-icon { width: 30px; height: 30px; border-radius: 8px; }
+  .passport-cta { padding: 12px; font-size: 14px; }
 }
 
 /* Variant 2: split frame — mint accent panel on right */
@@ -360,20 +407,10 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 
-/* Featured offer card — 2x bento */
-.offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
-.offers-grid.with-featured { grid-template-columns: repeat(4, 1fr); }
-.offers-grid.with-featured > :first-child { grid-column: span 2; grid-row: span 2; }
-.offers-grid.with-featured > :first-child .offer-img { aspect-ratio: 16/12; }
-.offers-grid.with-featured > :first-child .offer-name { font-size: 28px; letter-spacing: -0.02em; }
-.offers-grid.with-featured > :first-child .offer-body { padding: 24px 28px 28px; }
-.offers-grid.with-featured > :first-child .offer-price .amount { font-size: 32px; }
-@media (max-width: 1100px) { .offers-grid.with-featured { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 820px) {
-  .offers-grid.with-featured { grid-template-columns: repeat(2, 1fr); }
-  .offers-grid.with-featured > :first-child { grid-column: span 2; grid-row: auto; }
-}
-@media (max-width: 540px) { .offers-grid.with-featured { grid-template-columns: 1fr; } .offers-grid.with-featured > :first-child { grid-column: auto; } }
+/* Offers grid — uniform cards */
+.offers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 720px) { .offers-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .offers-grid { grid-template-columns: 1fr; } }
 
 /* ─── Why us section ─── */
 .why-section { background: var(--tc-paper); position: relative; overflow: hidden; }
@@ -391,7 +428,7 @@ img { max-width: 100%; display: block; }
 }
 .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
 @media (max-width: 900px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 540px) { .why-grid { grid-template-columns: 1fr; } }
+@media (max-width: 820px) { .why-grid { display: none; } }
 
 .why-card {
   position: relative; background: var(--tc-cream); border: 1.5px solid var(--tc-line-soft);
@@ -542,17 +579,28 @@ img { max-width: 100%; display: block; }
   .newsletter-right { padding: 40px 32px; }
   .newsletter-left .script { font-size: 42px; }
 }
+@media (max-width: 540px) {
+  .newsletter-left { padding: 32px 24px; }
+  .newsletter-right { padding: 32px 24px; }
+  .newsletter-left .script { font-size: 34px; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form .btn { width: 100%; justify-content: center; }
+  .newsletter-section { padding: 56px 0; }
+}
 
 /* ─── Instagram mosaic ─── */
-.ig-mosaic { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 140px; gap: 12px; }
+.ig-mosaic { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 160px; gap: 12px; }
 .ig-mosaic .ig-tile { aspect-ratio: auto; }
 .ig-mosaic .ig-tile:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-.ig-mosaic .ig-tile:nth-child(4) { grid-column: span 2; grid-row: span 2; }
-.ig-mosaic .ig-tile:nth-child(7) { grid-row: span 2; }
-.ig-mosaic .ig-tile:nth-child(9) { grid-column: span 2; }
+.ig-mosaic .ig-tile:nth-child(2) { grid-column: span 2; grid-row: span 2; }
+.ig-mosaic .ig-tile:nth-child(8) { grid-column: span 2; }
+.ig-mosaic .ig-tile:nth-child(10) { grid-column: span 2; }
 @media (max-width: 900px) {
-  .ig-mosaic { grid-template-columns: repeat(3, 1fr); }
+  .ig-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
   .ig-mosaic .ig-tile { grid-column: auto !important; grid-row: auto !important; }
+}
+@media (max-width: 480px) {
+  .ig-mosaic { grid-template-columns: 1fr; grid-auto-rows: 200px; }
 }
 
 /* Polaroid effect tile */
@@ -677,13 +725,42 @@ img { max-width: 100%; display: block; }
   .bestsellers-grid > div { transform: none !important; }
 }
 @media (max-width: 520px) {
-  .bestsellers-grid { grid-template-columns: 1fr; }
+  .bestsellers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+
+  .bestsellers-grid .offer-num { font-size: 20px; }
+  .bestsellers-grid .offer-img { aspect-ratio: 4/3; }
+  .bestsellers-grid .offer-badge { font-size: 9px; padding: 3px 7px; top: 6px; left: 6px; }
+  .bestsellers-grid .offer-fav { width: 26px; height: 26px; top: 6px; right: 6px; }
+  .bestsellers-grid .offer-body { padding: 9px 10px 10px; gap: 3px; }
+  .bestsellers-grid .offer-loc { font-size: 10px; gap: 3px; }
+  .bestsellers-grid .offer-name { font-size: 13px; }
+  .bestsellers-grid .offer-meta { font-size: 10px; gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+  .bestsellers-grid .offer-meta span { gap: 2px; }
+  .bestsellers-grid .offer-foot { margin-top: 6px; padding-top: 6px; gap: 6px; }
+  .bestsellers-grid .offer-price .from { font-size: 9px; }
+  .bestsellers-grid .offer-price .amount { font-size: 15px; }
+  .bestsellers-grid .offer-price .strike { font-size: 9px; margin-left: 3px; }
+  .bestsellers-grid .offer-go { width: 28px; height: 28px; flex-shrink: 0; }
+
+  .globe-stage {
+    display: block;
+    width: 260px; height: 260px;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .bestsellers-handwritten { display: none; }
+  .bestsellers-section { padding-top: 40px; padding-bottom: 64px; }
+  .bestsellers-section > .container { padding-top: 180px; position: relative; z-index: 2; }
+  .bestsellers-section .section-head {
+    position: relative; z-index: 3;
+    background: linear-gradient(to bottom, rgba(242,248,243,0.92) 65%, transparent);
+    padding-bottom: 10px;
+  }
 }
 
-.bestsellers-grid .offer-num {
-  /* Override generic number style for bestseller numbering */
-  font-size: 52px;
-}
+
+.bestsellers-grid .offer-num { font-size: 52px; }
 
 /* Big handwritten "Bestsellers" in background */
 .bestsellers-handwritten {
@@ -700,89 +777,53 @@ img { max-width: 100%; display: block; }
 .bestsellers-handwritten.br { bottom: 32px; right: 5%; font-size: 140px; color: var(--tc-mint-deep); opacity: 0.1; }
 @media (max-width: 720px) { .bestsellers-handwritten { display: none; } }
 
-/* ─── World Map Filter (Sve ponude) ─── */
+/* ─── World Map Filter — Leaflet (Sve ponude) ─── */
 .world-map-filter {
   position: relative;
   width: 100%; max-width: 900px;
   margin: 0 auto 36px;
-  aspect-ratio: 2/1;
-  background: var(--tc-paper);
   border-radius: 22px;
-  padding: 18px;
   box-shadow: var(--tc-shadow-sm);
   border: 1.5px solid var(--tc-line-soft);
-}
-.world-map-filter svg { width: 100%; height: 100%; display: block; }
-.world-map-filter .continent { fill: var(--tc-mint); opacity: 0.55; transition: opacity .25s ease; }
-.world-map-filter:hover .continent { opacity: 0.4; }
-
-/* Pin */
-.map-pin { cursor: pointer; transition: transform .2s ease; }
-.map-pin .pin-dot {
-  fill: var(--tc-orange);
-  stroke: white; stroke-width: 1.8;
-  transition: fill .2s ease, r .2s ease;
-}
-.map-pin .pin-pulse {
-  fill: var(--tc-orange);
-  opacity: 0.55;
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: pin-pulse 2.4s ease-out infinite;
-  pointer-events: none;
-}
-.map-pin:hover .pin-dot, .map-pin.selected .pin-dot { fill: var(--tc-orange-deep); }
-.map-pin.selected .pin-dot { stroke: var(--tc-orange-deep); stroke-width: 3; }
-.map-pin.dim { opacity: 0.4; }
-.map-pin.dim .pin-pulse { animation-play-state: paused; opacity: 0; }
-@keyframes pin-pulse {
-  0% { opacity: 0.55; transform: scale(0.3); }
-  100% { opacity: 0; transform: scale(3.2); }
+  overflow: hidden;
 }
 
-/* Stagger pulse start so they don't all flash together */
-.map-pin:nth-child(2n) .pin-pulse { animation-delay: 0.4s; }
-.map-pin:nth-child(3n) .pin-pulse { animation-delay: 0.8s; }
-.map-pin:nth-child(5n) .pin-pulse { animation-delay: 1.2s; }
-.map-pin:nth-child(7n) .pin-pulse { animation-delay: 1.6s; }
+.lf-map-canvas { height: 380px; width: 100%; }
 
-/* Tooltip overlay (positioned with inline style) */
-.map-tooltip {
-  position: absolute;
+.world-map-filter .leaflet-container { font-family: 'Manrope', sans-serif; }
+.world-map-filter .leaflet-control-zoom { border: none; box-shadow: 0 2px 10px rgba(82,60,30,0.14); }
+.world-map-filter .leaflet-control-zoom a { color: var(--tc-ink); border-radius: 6px !important; }
+.world-map-filter .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,0.7); }
+
+/* Leaflet destination tooltip */
+.leaflet-tooltip.lf-tip {
   background: var(--tc-paper);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(82, 60, 30, 0.18);
-  padding: 8px 10px 8px 8px;
-  display: flex; gap: 10px; align-items: center;
-  pointer-events: none;
-  transform: translate(-50%, calc(-100% - 14px));
-  z-index: 10;
-  min-width: 220px;
   border: 1px solid var(--tc-line-soft);
-  animation: tt-pop .15s ease-out;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(82,60,30,0.18);
+  padding: 0;
+  white-space: nowrap;
 }
-@keyframes tt-pop { from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); } to { opacity: 1; transform: translate(-50%, calc(-100% - 14px)); } }
-.map-tooltip img { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
-.map-tooltip .tt-loc { font-size: 11px; color: var(--tc-ink-soft); letter-spacing: 0.04em; }
-.map-tooltip .tt-name { font-weight: 700; font-size: 14px; line-height: 1.2; margin: 1px 0; }
-.map-tooltip .tt-price { font-size: 13px; color: var(--tc-orange-deep); font-weight: 800; }
-.map-tooltip::after {
-  content: ''; position: absolute;
-  left: 50%; bottom: -7px; transform: translateX(-50%) rotate(45deg);
-  width: 14px; height: 14px; background: var(--tc-paper);
-  border-right: 1px solid var(--tc-line-soft);
-  border-bottom: 1px solid var(--tc-line-soft);
-}
+.leaflet-tooltip.lf-tip::before { border-top-color: var(--tc-paper); }
+.lf-tip-inner { display: flex; gap: 10px; align-items: center; padding: 8px 12px 8px 8px; }
+.lf-tip-inner img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.tip-loc { font-size: 11px; color: var(--tc-ink-soft); letter-spacing: 0.04em; }
+.tip-name { font-weight: 700; font-size: 14px; line-height: 1.2; margin: 1px 0; color: var(--tc-ink); }
+.tip-price { font-size: 13px; color: var(--tc-orange-deep); font-weight: 800; }
 
 .map-legend {
-  position: absolute; top: 28px; left: 28px;
+  position: absolute; top: 28px; left: 28px; z-index: 500;
   display: flex; flex-direction: column; gap: 4px;
   font-size: 11.5px; color: var(--tc-ink-soft);
   pointer-events: none;
+  background: rgba(255,255,255,0.88);
+  padding: 8px 12px 7px;
+  border-radius: 10px;
+  box-shadow: var(--tc-shadow-sm);
 }
 .map-legend .ml-title { font-family: 'Caveat', cursive; font-size: 22px; color: var(--tc-ink); line-height: 1; }
 .map-clear {
-  position: absolute; top: 28px; right: 28px;
+  position: absolute; top: 28px; right: 28px; z-index: 500;
   font-size: 12px; font-weight: 600; color: var(--tc-orange-deep);
   background: var(--tc-orange-tint);
   border: 0; padding: 7px 12px; border-radius: 999px;
@@ -792,9 +833,10 @@ img { max-width: 100%; display: block; }
 .map-clear:hover { background: var(--tc-orange); color: white; }
 
 @media (max-width: 720px) {
-  .map-legend { top: 12px; left: 12px; }
+  .lf-map-canvas { height: 260px; }
+  .map-legend { top: 10px; left: 10px; padding: 6px 10px 5px; }
   .map-legend .ml-title { font-size: 18px; }
-  .map-tooltip { min-width: 180px; }
+  .map-clear { top: 10px; right: 10px; }
 }
 
 /* ─── Boarding pass (Kako do putovanja) ─── */
@@ -936,6 +978,14 @@ img { max-width: 100%; display: block; }
   .bp-route { font-size: 18px; }
   .bp-route .dash { width: 36px; }
   .bp-meta { font-size: 10px; gap: 12px; }
+}
+@media (max-width: 600px) {
+  .bp-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 20px; }
+  .bp-footer { padding: 16px 20px; }
+  .bp-footer-info { gap: 16px; }
+  .bp-barcode { display: none; }
+  .bp-step { padding: 24px 20px; }
+  .bp-step-num { font-size: 44px; }
 }
 
 /* ─── Open passport spread (Why us) ─── */
@@ -1084,14 +1134,13 @@ img { max-width: 100%; display: block; }
   border: 3.5px solid currentColor;
   border-radius: 50%;
   color: var(--tc-orange-deep);
-  background: rgba(231, 138, 83, 0.08);
+  background: rgba(231, 138, 83, 0.1);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  font-weight: 800; font-size: 9px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  line-height: 1.2;
-  mix-blend-mode: multiply;
+  font-weight: 800; font-size: 11px;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  line-height: 1.3;
   opacity: 0;
   transform: scale(1.8) rotate(var(--rot, 0deg));
   filter: blur(2px);
@@ -1102,12 +1151,12 @@ img { max-width: 100%; display: block; }
   content: ''; position: absolute; inset: 6px;
   border: 1.5px solid currentColor;
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.4;
 }
-.stamp-mark .stamp-icon { margin-bottom: 5px; opacity: 0.85; }
-.stamp-mark .stamp-label { font-size: 9px; padding: 0 12px; }
-.stamp-mark .stamp-date { font-size: 8px; opacity: 0.75; margin-top: 4px; letter-spacing: 0.14em; }
-.stamp-mark.mint { color: var(--tc-mint-deep); background: rgba(151, 201, 174, 0.12); }
+.stamp-mark .stamp-icon { margin-bottom: 4px; opacity: 1; }
+.stamp-mark .stamp-label { font-size: 12px; padding: 0 10px; line-height: 1.3; }
+.stamp-mark .stamp-date { font-size: 10px; opacity: 0.85; margin-top: 3px; letter-spacing: 0.12em; }
+.stamp-mark.mint { color: var(--tc-mint-deep); background: rgba(151, 201, 174, 0.14); }
 
 /* Individual stamp positions on right page */
 .stamp-mark.s1 { top: 92px; left: 30px; --rot: -12deg; }
@@ -1126,19 +1175,30 @@ img { max-width: 100%; display: block; }
 @keyframes stamp-down {
   0% { opacity: 0; transform: scale(1.8) rotate(var(--rot)); filter: blur(2px); }
   55% { opacity: 1; transform: scale(0.9) rotate(var(--rot)); filter: blur(0); }
-  100% { opacity: 0.85; transform: scale(1) rotate(var(--rot)); filter: blur(0); }
+  100% { opacity: 0.95; transform: scale(1) rotate(var(--rot)); filter: blur(0); }
 }
 
 @media (max-width: 820px) {
-  .passport-spread { grid-template-columns: 1fr; min-height: auto; }
+  .passport-spread { grid-template-columns: 1fr; min-height: auto; transform: none; border-radius: 10px; }
+  .passport-spread-wrap { perspective: none; margin: 0 0 28px; }
   .passport-spread::before, .passport-spread::after { display: none; }
-  .pp-left { border-right: 0; border-bottom: 1px dashed rgba(180, 150, 100, 0.25); }
-  .pp-right { min-height: 480px; padding-top: 32px; }
-  .pp-right::after { font-size: 160px; }
-  .stamp-mark { width: 108px; height: 108px; }
-  .stamp-mark.s1 { top: 110px; left: 6%; }
-  .stamp-mark.s2 { top: 130px; right: 6%; }
-  .stamp-mark.s3 { bottom: 130px; left: 12%; }
-  .stamp-mark.s4 { bottom: 50px; right: 12%; }
+  .pp-left { display: none; }
+  .pp-right { min-height: 320px; padding: 20px 20px 24px; border-radius: 10px; }
+  .pp-right::after { font-size: 120px; }
+  .pp-right::before { inset: 10px; }
+  .stamp-mark { width: 110px; height: 110px; }
+  .stamp-mark .stamp-label { font-size: 10.5px; }
+  .stamp-mark .stamp-date { font-size: 9px; }
+  .stamp-mark.s1 { top: 80px; left: 6%; }
+  .stamp-mark.s2 { top: 96px; right: 6%; }
+  .stamp-mark.s3 { bottom: 80px; left: 12%; }
+  .stamp-mark.s4 { bottom: 20px; right: 12%; }
+  .pp-right-title { font-size: 28px; margin: 0 0 2px; }
+  .pp-right-sub { font-size: 10px; margin-bottom: 6px; }
+}
+@media (max-width: 480px) {
+  .stamp-mark { width: 90px; height: 90px; }
+  .stamp-mark .stamp-label { font-size: 9.5px; }
+  .stamp-mark .stamp-date { font-size: 8.5px; }
 }
 

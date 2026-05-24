@@ -738,11 +738,26 @@ img { max-width: 100%; display: block; }
   .bestsellers-grid > div { transform: none !important; }
 }
 @media (max-width: 520px) {
-  .bestsellers-grid { grid-template-columns: 1fr; }
+  .bestsellers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+
+  /* Compact cards in 2-col mobile grid */
+  .bestsellers-grid .offer-num { font-size: 20px; }
+  .bestsellers-grid .offer-img { aspect-ratio: 4/3; }
+  .bestsellers-grid .offer-badge { font-size: 9px; padding: 3px 7px; top: 6px; left: 6px; }
+  .bestsellers-grid .offer-fav { width: 26px; height: 26px; top: 6px; right: 6px; }
+  .bestsellers-grid .offer-body { padding: 9px 10px 10px; gap: 3px; }
+  .bestsellers-grid .offer-loc { font-size: 10px; gap: 3px; }
+  .bestsellers-grid .offer-name { font-size: 13px; }
+  .bestsellers-grid .offer-meta { font-size: 10px; gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+  .bestsellers-grid .offer-meta span { gap: 2px; }
+  .bestsellers-grid .offer-foot { margin-top: 6px; padding-top: 6px; gap: 6px; }
+  .bestsellers-grid .offer-price .from { font-size: 9px; }
+  .bestsellers-grid .offer-price .amount { font-size: 15px; }
+  .bestsellers-grid .offer-price .strike { font-size: 9px; margin-left: 3px; }
+  .bestsellers-grid .offer-go { width: 28px; height: 28px; flex-shrink: 0; }
 }
 
 .bestsellers-grid .offer-num {
-  /* Override generic number style for bestseller numbering */
   font-size: 52px;
 }
 
