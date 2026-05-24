@@ -278,10 +278,10 @@ img { max-width: 100%; display: block; }
   .passport.v-open .passport-inner { grid-template-columns: 0.95fr 1fr; }
   .passport.v-open .passport-left { padding: 16px 10px 16px 12px; }
   .passport.v-open .passport-left::before { inset: 8px; }
-  .passport.v-open .passport-left .crown { font-size: 20px; text-align: left; padding-left: 4px; }
-  .passport.v-open .passport-left .crest { width: 44px; height: 44px; margin: 10px 0 8px 4px; font-size: 18px; }
-  .passport.v-open .passport-left .country { text-align: left; padding-left: 4px; font-size: 8.5px; letter-spacing: 0.12em; }
-  .passport.v-open .passport-left .ornament { text-align: left; padding-left: 12px; }
+  .passport.v-open .passport-left .crown { font-size: 20px !important; text-align: left !important; padding-left: 4px !important; margin-left: 0 !important; display: block !important; width: 100% !important; }
+  .passport.v-open .passport-left .crest { width: 44px !important; height: 44px !important; margin: 10px 0 8px 4px !important; font-size: 18px; }
+  .passport.v-open .passport-left .country { text-align: left !important; padding-left: 4px !important; font-size: 8.5px; letter-spacing: 0.12em; }
+  .passport.v-open .passport-left .ornament { text-align: left !important; padding-left: 12px !important; left: 0 !important; right: auto !important; }
   .passport-tabs { padding: 3px; gap: 3px; margin-bottom: 12px; }
   .passport-tab { padding: 8px 4px; font-size: 11px; gap: 3px; }
   .passport-field { padding: 10px 10px; gap: 8px; }
